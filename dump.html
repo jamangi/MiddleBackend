@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>dump scripts</title>
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<!-- Latest compiled JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> 
+	<script type="text/javascript" src="Datastore.js"></script>
+	<script type="text/javascript" src="middleBackend.js"></script>
+
+	<style>
+		.characterImg {
+			max-width: 30px;
+			max-height: 40px;
+		}
+	</style>
+</head>
+<body>
+<div class="container">
+	<div class="btn-group">
+	  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#checkModal">check</button>
+	  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#collectModal">collect</button>
+	  <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#dumpModal">dump</button>
+	  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#dropModal">drop</button>
+	  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editModal">edit</button>
+	  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#full_restoreModal">full_restore</button>
+	  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#healModal">heal</button>
+	  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#loadModal">load</button>
+	  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#runModal">run</button>
+	  <button type="button" class="btn btn-info" data-toggle="modal" data-target="#setModal">set</button>
+	  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#startModal">start</button>
+	  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#statusModal">status</button>
+	  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#testModal">test</button>
+	  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#touchModal">touch</button>
+	</div> 
+
+  <!-- Modal Check -->
+  <div class="modal fade" id="checkModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">check</h4>
+        </div>
+        <div class="modal-body">
+          <p id="checkContent">Some text in check.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+  <!-- Modal Check -->
+  <div class="modal fade" id="collectModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">collect</h4>
+        </div>
+        <div class="modal-body">
+          <p id="collectContent">Some text in collect.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+  <!-- Modal Check -->
+  <div class="modal fade" id="dumpModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">dump</h4>
+        </div>
+        <div class="modal-body">
+          <p id="dumpContent">Some text in dump.</p>
+        </div>
+        <div class="modal-footer">
+	    	<form id='file-catcher'>
+			  <input id='file-input' type='file' multiple/>
+			  <button type='submit' class="btn btn-default">
+			    Submit
+			  </button>
+			</form>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+  <!-- Modal Check -->
+  <div class="modal fade" id="dropModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">drop</h4>
+        </div>
+        <div class="modal-body">
+          <p id="dropContent">Some text in drop.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+  <!-- Modal Check -->
+  <div class="modal fade" id="editModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">edit</h4>
+        </div>
+        <div class="modal-body">
+          <p id="editContent">Some text in edit.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+  <!-- Modal Check -->
+  <div class="modal fade" id="full_restoreModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">full_restore</h4>
+        </div>
+        <div class="modal-body">
+          <p id="full_restoreContent">Some text in full_restore.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+  <!-- Modal Check -->
+  <div class="modal fade" id="healModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">heal</h4>
+        </div>
+        <div class="modal-body">
+          <p id="healContent">Some text in heal.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+  <!-- Modal Check -->
+  <div class="modal fade" id="loadModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">load</h4>
+        </div>
+        <div class="modal-body">
+          <p id="loadContent">Some text in load.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+  <!-- Modal Check -->
+  <div class="modal fade" id="runModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">run</h4>
+        </div>
+        <div class="modal-body">
+          <p id="runContent">Some text in run.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+  <!-- Modal Check -->
+  <div class="modal fade" id="setModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">set</h4>
+        </div>
+        <div class="modal-body">
+          <p id="setContent">Some text in set.</p>
+        </div>
+        <div class="modal-footer">
+        	<form id="setForm">
+        		<input type="text" class="form-control" id="nameInput" placeholder="username">
+        		<input type="hidden" value="" id="characterInput">
+			    <label class="radio-inline">
+			      <input type="radio" name="optradio" value="titan"
+			       onclick="setCharacter(this.value)">
+			      <img class="characterImg" src="images/titan/titanWalkDown.gif">
+			    </label>
+			    <label class="radio-inline">
+			      <input type="radio" name="optradio" value="goku"
+			       onclick="setCharacter(this.value)">
+			      <img class="characterImg" src="images/goku/gokuWalkDown.gif">
+			    </label>
+			    <label class="radio-inline">
+			      <input type="radio" name="optradio" value="solomon"
+			       onclick="setCharacter(this.value)">
+			      <img class="characterImg" src="images/solomon/solomonWalkDown.gif">
+			    </label>
+			    <label class="radio-inline">
+			      <input type="radio" name="optradio" value="miranda"
+			       onclick="setCharacter(this.value)">
+			      <img class="characterImg" src="images/miranda/mirandaWalkDown.gif">
+			    </label>
+			    <button type='submit' class="btn btn-default">
+			    Submit
+			  </button>
+			</form>
+            <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+  <!-- Modal Check -->
+  <div class="modal fade" id="startModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">start</h4>
+        </div>
+        <div class="modal-body">
+          <p id="startContent">Some text in start.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+  <!-- Modal Check -->
+  <div class="modal fade" id="statusModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">status</h4>
+        </div>
+        <div class="modal-body">
+          <p id="statusContent">Some text in status.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+  <!-- Modal Check -->
+  <div class="modal fade" id="testModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">test</h4>
+        </div>
+        <div class="modal-body">
+          <p id="testContent">Some text in test.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+  <!-- Modal Check -->
+  <div class="modal fade" id="touchModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">touch</h4>
+        </div>
+        <div class="modal-body">
+          <p id="touchContent">Some text in touch.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+
+</div> <!--  end of container  -->
+
+<script type="text/javascript" src="initListeners.js"></script>
+
+</body>
+</html>
