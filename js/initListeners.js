@@ -7,7 +7,7 @@ window.onload = function() {
 	let setForm = document.getElementById('setForm');
 	setForm.addEventListener('submit', function (evnt) {
 		evnt.preventDefault();
-		sendSet();
+		setSend();
 	});
 
 

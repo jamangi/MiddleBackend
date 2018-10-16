@@ -92,7 +92,7 @@ function setCallback(data) {
 	}
 }
 
-function sendSet() {
+function setSend() {
 	let display = document.getElementById("setContent");
 	let charInput = document.getElementById("characterInput").value;
 	let nameInput = document.getElementById("nameInput").value
