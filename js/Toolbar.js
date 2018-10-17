@@ -7,6 +7,12 @@ class Toolbar {
 		this.actionButton.addEventListener('click', function (evnt){
 			touchSend();
 		});
+
+		this.scriptButton.addEventListener('click', function (envt){
+			actionModal.showDrop(datastore['userData']);
+		});
+
+		this.showConnect();
 	}
 
 	showConnect() {

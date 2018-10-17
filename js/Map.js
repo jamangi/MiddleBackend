@@ -1,7 +1,8 @@
 
 
 class Map {
-	constructor(mapWidth, mapHeight, mapRows, mapCols, floorTileImg) {
+	constructor(mapWidth, mapHeight, mapRows, mapCols, floorTileImg, location) {
+		window.map = this;
 		this.mapWidth = mapWidth;
 		this.mapHeight = mapHeight;
 		this.mapRows = mapRows;
@@ -12,6 +13,21 @@ class Map {
 		this.floorTileImg = floorTileImg;
 		this.mapDiv = document.getElementById("map");
 		this.mapDiv.map = this;
+		this.location = location;
+
+		datastore.load(map.populateScripts, this.location);
+
+	}
+
+	populateScripts(data) {
+		let scripts = data['scripts'];
+		for (let script of scripts){
+			let sid = script['id'];
+			let row = script['row'];
+			let col = script['col'];
+			let scriptObj = new ImageObject(sid, .5, .5, [], "images/icons/bash.png", -1);
+			map.addObject(scriptObj, row, col);
+		}
 	}
 
 	setTiles() {
@@ -94,7 +110,7 @@ class Map {
 }
 
 class ImageObject{
-	constructor(ID, objWidth, objHeight, barrierList, img){
+	constructor(ID, objWidth, objHeight, barrierList, img, zOffset){
 		this.ID = ID;
 		this.objWidth = objWidth;
 		this.objHeight = objHeight;
@@ -102,7 +118,7 @@ class ImageObject{
 		this.img = img;
 		this.row = '';
 		this.col = '';
-		this.zOffset = 0;
+		this.zOffset = zOffset;
 		this.objType = '';
 	}
 }
@@ -113,21 +129,15 @@ function emptyWood(){
 			 mapRows: 40, 
 			 mapCols: 40,
 			 cellSize: 1200 / 40,
-			 floorTileImg: "images/map/roomfloor.png"};
-	let map = new Map(m.mapWidth, m.mapHeight, m.mapRows, m.mapCols, m.floorTileImg);
+			 floorTileImg: "images/map/roomfloor.png",
+			 location: 'training'};
+	let map = new Map(m.mapWidth, m.mapHeight, m.mapRows,
+					  m.mapCols, m.floorTileImg, m.location);
 	map.setTiles();
 	return map;
 }
 
-function makeSeaHorse() {
-	let m = {mapHeight: 1200, 
-			 mapWidth: 1200, 
-			 mapRows: 40, 
-			 mapCols: 40,
-			 cellSize: 1200 / 40,
-			 floorTileImg: "images/map/roomfloor.png"};
-	let map = new Map(m.mapWidth, m.mapHeight, m.mapRows, m.mapCols, m.floorTileImg);
-	map.setTiles();
+function makeSeaHorse(map) {
 
 	let box = new ImageObject("box_0",1, 1, [[0,0]], "images/map/material/box.png");
 	
@@ -164,6 +174,5 @@ function makeSeaHorse() {
 		
 	}
 
-	return map;
 
 }

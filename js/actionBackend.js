@@ -11,7 +11,8 @@ function clearLog(ele) {
 }
 
 function loadingLog(ele) {
-	ele.innerHTML = 'loading...';
+	let load = "<span style='color:darkgreen;'> loading... </span>";
+	ele.innerHTML = load;
 }
 
 function messageLog(ele, msg) {
@@ -50,6 +51,35 @@ function returnLog(ele, msg) {
 		ele.innerHTML = ele.innerHTML + "<br>" + msg;
 }
 
+function reconnect(data) {
+	toolbar.showConnect();
+	actionModal.messageLog(data['msg'])
+	actionModal.showSet();
+}
+////////// Drop (drop file) ////////////////
+function dropCallback(data) {
+	actionModal.loadingOn();
+	if (checkError(data))
+		reconnect(data);
+	else{
+		toolbar.showStatus(data);
+		actionModal.showDrop(data);
+	}
+}
+
+function dropSend() {
+	let actionScriptname = document.getElementById("actionScriptname");
+	let actionScripttext = document.getElementById("actionScripttext");
+	if (actionScriptname.value.lenth === 0 || actionScripttext.value.length === 0)
+		actionModal.messageLog("<small style='color:darkred;'>script name and text needed</small>")
+	else {
+		actionModal.loadingOn();
+		data = {filename: actionScriptname.value,
+				filetext: actionScripttext.value,
+				row: user.row, col: user.col};
+		datastore.drop(dropCallback, data)
+	}
+}
 
 ////////// Set (set username, character, and ip) ///////////
 function setFormUpdate(char) {
@@ -58,11 +88,8 @@ function setFormUpdate(char) {
 
 function setCallback(data) {
 	actionModal.clear();
-	if (checkError(data)){
-		toolbar.showConnect();
-		actionModal.messageLog(data['msg'])
-		actionModal.showSet();
-	}
+	if (checkError(data))
+		reconnect(data)
 	else{
 		toolbar.showStatus(data);
 		actionModal.showHeal(data);
@@ -87,11 +114,8 @@ function setSend() {
 ////////// Touch (fetch username, character, and ip) ///////////
 function touchCallback(data) {
 	actionModal.loadingOff();
-	if (checkError(data)){
-		toolbar.showConnect();
-		actionModal.messageLog(data['msg'])
-		actionModal.showSet();
-	}
+	if (checkError(data))
+		reconnect(data)
 	else{
 		toolbar.showStatus(data);
 		actionModal.showHeal(data);
@@ -99,7 +123,5 @@ function touchCallback(data) {
 }
 function touchSend() {
 	actionModal.loadingOn();
-	datastore.touch(touchCallback)
+	datastore.touch(touchCallback);
 }
-
-/////// Connect ///////////

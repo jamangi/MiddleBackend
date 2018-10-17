@@ -20,7 +20,8 @@ class ActionModal {
 		this.actionTestButton = document.getElementById("actionTestButton");
 
 		this.actionSetForm = document.getElementById("actionSetForm");
-
+		this.actionScriptForm = document.getElementById("actionScriptForm");
+		
 		this.actionSetForm.addEventListener('submit', function (evnt){
 			evnt.preventDefault();
 			setSend();
@@ -30,6 +31,8 @@ class ActionModal {
 			actionModal.showUpdate(datastore["userData"]);
 		});
 
+		this.actionDropButton.addEventListener('click', function(){dropSend();})
+
 		this.components = [this.actionTitle, this.actionContent,
 						   this.actionButtons, this.actionForm];
 
@@ -38,6 +41,18 @@ class ActionModal {
 
 
 	//////////////  api /////////////////////////
+
+	appendUserTitle(data) {
+		let u = data["user"];
+		let name = u["name"];
+		let form = u["form"];
+		let imgdir = "images/characters/"
+		let img = imgdir+form+"/"+form+"WalkDown.gif";
+		returnLog(this.actionTitle, "<h2 style='float:right'; class='text-capitalize'>"
+				  +name+"</h2>");
+		this.actionTitleImg.setAttribute('src',img);
+		this.actionTitle.appendChild(this.actionTitleImg);
+	}
 
 	clear() {
 		for (let component of this.components) {
@@ -76,17 +91,10 @@ class ActionModal {
 
 	showUser(data) {
 		this.clear();
-		let u = data["user"];
-		let name = u["name"];
-		let form = u["form"];
-		let imgdir = "images/characters/"
-		let img = imgdir+form+"/"+form+"WalkDown.gif";
-		returnLog(this.actionTitle, "<h2 style='float:right'; class='text-capitalize'>"
-				  +name+"</h2>");
-		this.actionTitleImg.setAttribute('src',img);
-		this.actionTitle.appendChild(this.actionTitleImg);
+		this.appendUserTitle(data);
 		this.printUser(data);
-		user.character = form;
+
+		user.character = data["user"]["form"];
 		user.update(user.row, user.col)
 	}
 
@@ -95,6 +103,17 @@ class ActionModal {
 		this.actionButtons.appendChild(this.actionChangeButton);
 		this.actionButtons.appendChild(this.actionHealButton);
 		this.actionButtons.appendChild(this.actionNewButton);
+	}
+
+	showDrop(data) {
+		this.clear();
+		this.appendUserTitle(data)
+
+		this.actionForm.appendChild(this.actionScriptForm);
+
+		this.actionButtons.appendChild(this.actionRunButton);
+		this.actionButtons.appendChild(this.actionTestButton);
+		this.actionButtons.appendChild(this.actionDropButton);
 	}
 	
 

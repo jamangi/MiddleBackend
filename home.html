@@ -32,9 +32,10 @@
 		<div class="col-sm-8" style="background-color:black;"><h1>Hello World!</h1></div>
 	    <div class="col-sm-3" style="background-color:black;">
 	    	<div id="toolbar" class="btn-group">
-	    		<button id="toolbarScript" type="button" class="btn btn-basic" disabled>Script</button>
+	    		<button id="toolbarScript" type="button" class="btn btn-basic"
+	    				data-toggle="modal" data-target="#actionModal">Script</button>
  		 		<button id="toolbarAction" type="button" class="btn btn-info"
- 		 		data-toggle="modal" data-target="#actionModal">Connect</button>
+ 		 				data-toggle="modal" data-target="#actionModal">Connect</button>
 			</div> 
 	    </div>
 	 </div>
@@ -54,9 +55,19 @@
 	        </div>
 	        <div class="modal-body">
 	        	<p id="actionLoading">loading...</p>
-	          <p id="actionContent">   
-	          </p>
+	            <p id="actionContent">   
+	            	<input type="text" class="form-control" id="actionScriptname">
+	            	<textarea class="form-control" rows="5" id="actionScripttext">
+	            	</textarea>
+	            </p>
 	          <div id="actionForm">
+	          	<form id="actionScriptForm">
+	          		<div class="form-group">
+      					<label for="usr">Script Name:</label>
+      					<input type="text" class="form-control" id="actionScriptname">
+      					<textarea class="form-control" rows="5" id="actionScripttext"></textarea>
+    				</div>
+	          	</form>
 	          	<form id="actionSetForm">
 	        		<input type="text" class="form-control" id="actionNameInput" placeholder="username">
 	        		<input type="hidden" value="" id="actionRadioInput">
