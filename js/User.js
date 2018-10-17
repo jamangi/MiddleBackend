@@ -1,11 +1,11 @@
 class User {
 	constructor (char) {
+		window.user = char;
 		this.character = char;
 		this.gb = document.getElementById("gamebox");
 		this.map = char.map;
 		this.selectedIDs = [];
 		this.gb.addEventListener("click", this.makeClickListener());
-		window.mainChar = char;
 	}
 
 	makeClickListener() {

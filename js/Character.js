@@ -8,12 +8,13 @@ class Character {
 		this.charDiv = undefined; 
 		this.charImg = undefined;
 		this.imgId = ID + "Img";
-
-		this.character = character
-
 		this.map = map;     
+
+		this.location = 'training';
+		this.character = character
 		this.row = row; 
 		this.col = col;
+
 		this.selectedRow = row; 
 		this.selectedCol = col;
 		this.facing = facing; 
@@ -25,7 +26,7 @@ class Character {
 		this.speed = baseSpeed;
 		this.left = col * map.cellSize; 
 		this.top = row * map.cellSize;  
-		this.imgFolder = "images/characters/"+character+"/";
+		this.imgFolder = "images/characters/";
 
 		this.imgCellWidth = imgCellWidth; 
 		this.imgCellHeight = imgCellHeight;
@@ -48,7 +49,7 @@ class Character {
 				  this.imgCellHeight * this.map.cellSize);
 		charDiv.style["z-index"] = this.row;
 		charDiv.style.transition = "left "+this.speed+"ms linear, top "+this.speed+"ms linear";
-		img.setAttribute("src", this.imgFolder+this.character+this.pose+".gif"); 
+		img.setAttribute("src", this.imgFolder+this.character+"/"+this.character+this.pose+".gif"); 
 		img.setAttribute("id", this.imgId);
 
 	}
@@ -88,7 +89,7 @@ class Character {
 			this.done = true;
 		else{
 			let check = this.map.items[destRow+"-"+destCol];
-			if (check && (check["lockune"] || check[mainChar.ID]))
+			if (check && (check["lockune"] || check[user.ID]))
 				this.done = true;
 		}
 
@@ -123,7 +124,7 @@ class Character {
 		this.charDiv.style.left = this.left + "px";
 		this.charDiv.style.top = this.top + "px";
 		this.charDiv.style["z-index"] = this.row;
-		let src = this.imgFolder+this.character+this.pose+".gif" ///// make simpler 
+		let src = this.imgFolder+this.character+"/"+this.character+this.pose+".gif" ///// make simpler 
 		if (this.lastPose !== this.pose)
 			this.charImg.setAttribute("src", src);
 	}

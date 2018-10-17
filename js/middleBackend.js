@@ -105,3 +105,5 @@ function setSend() {
 		datastore.set(setCallback, data)
 	}
 }
+
+////////// Touch (fetch username, character, and ip) ///////////
