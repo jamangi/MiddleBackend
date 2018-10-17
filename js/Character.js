@@ -125,7 +125,8 @@ class Character {
 		this.charDiv.style.top = this.top + "px";
 		this.charDiv.style["z-index"] = this.row;
 		let src = this.imgFolder+this.character+"/"+this.character+this.pose+".gif" ///// make simpler 
-		if (this.lastPose !== this.pose)
+		let oldsrc = this.charImg.getAttribute("src");
+		if (src !== oldsrc)
 			this.charImg.setAttribute("src", src);
 	}
 

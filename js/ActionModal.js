@@ -76,21 +76,25 @@ class ActionModal {
 
 	showUser(data) {
 		this.clear();
-		let user = data["user"];
-		let name = user["name"];
-		let form = user["form"];
+		let u = data["user"];
+		let name = u["name"];
+		let form = u["form"];
 		let imgdir = "images/characters/"
 		let img = imgdir+form+"/"+form+"WalkDown.gif";
-		returnLog(this.actionTitle, "<h2 style='float:right;'>"+name+"</h2>");
+		returnLog(this.actionTitle, "<h2 style='float:right'; class='text-capitalize'>"
+				  +name+"</h2>");
 		this.actionTitleImg.setAttribute('src',img);
 		this.actionTitle.appendChild(this.actionTitleImg);
 		this.printUser(data);
+		user.character = form;
+		user.update(user.row, user.col)
 	}
 
 	showHeal(data) {
 		this.showUser(data);
 		this.actionButtons.appendChild(this.actionChangeButton);
 		this.actionButtons.appendChild(this.actionHealButton);
+		this.actionButtons.appendChild(this.actionNewButton);
 	}
 	
 

@@ -25,15 +25,14 @@ function printError(display, data) {
 function printUser(display, data) {
 	let props = ["name", "id", "location",
 				 "character", "form", "material",
-				 "total_collected", "total_dropped",
-				 "row", "col"]
+				 "total_collected", "total_dropped"]
 
 	let status = "healthy"
 	if (data["user"]["form"] === "ghost")
 		status = "ghost"
 
 	for (let prop of props){
-		let key = prop;
+		let key = prop.replace("total_", "");
 		let value = data["user"][prop];
 		if (prop === "form") {
 			key = "status";

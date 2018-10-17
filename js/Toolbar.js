@@ -10,14 +10,16 @@ class Toolbar {
 	}
 
 	showConnect() {
+		this.scriptButton.setAttribute("disabled", true);
 		this.actionButton.innerHTML = "Connect"
 		this.actionButton.setAttribute("class", "btn btn-info");
 	}
 
 	showStatus(data) {
+		this.scriptButton.removeAttribute("disabled");
 		let user = data["user"]
 		let form = user["form"]
-		this.actionButton.innerHTML = user["name"];
+		this.actionButton.innerHTML = "<span class='text-capitalize'>" + user["name"] + "</span>";
 		if (form === "ghost")
 			this.actionButton.setAttribute("class", "btn btn-warning");
 		else
