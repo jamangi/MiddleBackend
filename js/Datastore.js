@@ -26,7 +26,7 @@ class Datastore {
 		let query = "";
 		if (method == "GET" && data !== undefined)
 			query = "/"+data;
-		let service = "http://localhost:9000/"+endpoint+query;
+		let service = "http://localhost:9080/"+endpoint+query;
 		let xhr = new XMLHttpRequest();
 		let datastore = this;
 		xhr.open(method, service, true);

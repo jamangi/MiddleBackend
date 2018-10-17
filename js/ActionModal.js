@@ -175,6 +175,10 @@ class ActionModal {
 		actionModal.actionOutputContent.innerHTML = output;
 	}
 
+	updateCollect() {
+		actionModal.appendUserTitle(datastore['userData']);
+	}
+
 	updateUser(data) {
 		user.changeID(data["user"]["id"]);
 		user.character = data["user"]["form"];

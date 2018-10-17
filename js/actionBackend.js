@@ -111,13 +111,14 @@ function runCallback(data) {
 	else{
 		actionModal.updateUser(data);
 		toolbar.showStatus(data);
+		actionModal.updateCollect(datastore['userData']);
 		actionModal.showOutput(data);
 		if (data['result']['has_heart'])
 			loadingOutputReturn("<small style='color:darkgreen;'>script ran safely</small>");
-		else if (data['result']['has_heart'] === null)
+		else if (data['result']['has_heart'] !== null)
 			loadingOutputReturn("<small style='color:orange;'>heart file was destroyed</small>");
 		else
-			loadingOutputReturn("<small style='color:darkred;'>script failed to complete</small>");
+			loadingOutputReturn("<small style='color:darkred;'>script failed to run</small>");
 
 	}
 }
@@ -150,6 +151,7 @@ function setCallback(data) {
 	else{
 		toolbar.showStatus(data);
 		actionModal.showHeal(data);
+		window.connected = true;
 	}
 }
 
@@ -177,7 +179,8 @@ function testCallback(data) {
 		let worth = data["material"]
 		let img = "<img src='images/icons/material.gif' width=10 height=15>"
 		loadingReturn("Script is worth "+ worth +" " + img + "");
-		setInterval(showDrop, 2000);
+		if (connected)
+			setTimeout(showDrop, 2000);
 	}
 }
 
