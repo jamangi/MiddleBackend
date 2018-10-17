@@ -1,13 +1,16 @@
 class Character {
-	constructor(ID, character, imgCellWidth, imgCellHeight,
+	constructor(character, imgCellWidth, imgCellHeight,
 	            row, col, basePose, facing, baseSpeed, mode, map, search) {
 
-		window.characterCount++;
-		this.ID = ID; 
+		if (window.characterCount !== undefined)
+			window.characterCount++;
+		else
+			window.characterCount = 1;
+		this.ID = character+"-"+characterCount; 
 
 		this.charDiv = undefined; 
 		this.charImg = undefined;
-		this.imgId = ID + "Img";
+		this.imgId = this.ID + "Img";
 		this.map = map;     
 
 		this.location = 'training';
@@ -56,14 +59,13 @@ class Character {
 
 	changeID(id){
 		this.ID = id;
-		charDiv.setAttribute("id", this.ID);
+		this.charDiv.setAttribute("id", this.ID);
 		this.imgId = id+"Img";
 		this.charImg.setAttribute("id", this.imgId);
 	}
 
 	toGhost() {
 		this.character = "ghost";
-		this.basePose = "Stand";
 	}
 
 	go(row, col){
@@ -152,15 +154,13 @@ function makeCharacterFromData(data){}
 
 function makeCharacter(map, row, col, character){
 
-	let name=character;
-	let ID=name+"_"+characterCount,
-	imgCellWidth = 1, 
+	let imgCellWidth = 1, 
 	imgCellHeight = 1,  
 	baseSpeed=250, 
 	basePose="Still",
 	facing="Down", 
 	mode="Walk";
-	let myChar = new Character(ID, character, imgCellWidth, imgCellHeight,
+	let myChar = new Character(character, imgCellWidth, imgCellHeight,
     				           row, col, basePose, facing, baseSpeed, mode, map, null);
 	myChar.pathSearch = makeSimpleSearch(myChar);
 
@@ -168,17 +168,15 @@ function makeCharacter(map, row, col, character){
 }
 
 function makeTitan(map, row, col){
-	
-	let name = 'titan';
-	let ID=name+"_"+characterCount,
-	character=name,
+
+	let character=name,
 	imgCellWidth = 1, 
 	imgCellHeight = 1,  
 	baseSpeed=250, 
 	basePose="Still",
 	facing="Right", 
 	mode="Walk";
-	let myChar = new Character(ID, character, imgCellWidth, imgCellHeight,
+	let myChar = new Character(character, imgCellWidth, imgCellHeight,
     				           row, col, basePose, facing, baseSpeed, mode, map, null);
 	myChar.pathSearch = makeSimpleSearch(myChar);
 

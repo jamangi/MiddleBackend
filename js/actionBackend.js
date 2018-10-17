@@ -10,11 +10,27 @@ function clearLog(ele) {
 	ele.innerHTML = '';
 }
 
-function loadingLog(ele) {
+function loadingClear() {
+	messageLog(actionModal.actionLoading, "");
+}
+function loadingLog() {
 	let load = "<span style='color:darkgreen;'> loading... </span>";
-	ele.innerHTML = load;
+	messageLog(actionModal.actionLoading, load);
+}
+function loadingReturn(html) {
+	messageLog(actionModal.actionLoading, html);
+}
+function loadingOutputClear(){
+	messageLog(actionModal.actionOutputLoading, "");
 }
 
+function loadingOutputLog (){
+	let load = "<span style='color:darkgreen;'> loading... </span>";
+	messageLog(actionModal.actionOutputLoading, load);
+}
+function loadingOutputReturn(html) {
+	messageLog(actionModal.actionOutputLoading, html);
+}
 function messageLog(ele, msg) {
 	ele.innerHTML = msg;
 }
@@ -57,13 +73,20 @@ function reconnect(data) {
 	actionModal.showSet();
 }
 ////////// Drop (drop file) ////////////////
+function showDrop(){
+	toolbar.showStatus(datastore["userData"]);
+}
 function dropCallback(data) {
-	actionModal.loadingOn();
 	if (checkError(data))
 		reconnect(data);
 	else{
+		let script = data["script"];
+		let worth = script["material"]
+		let img = "<img src='images/icons/material.gif' width=10 height=15>"
+		loadingReturn("Dropped script is worth "+ worth +" " + img + "");
+		setInterval(showDrop, 2000);
 		toolbar.showStatus(data);
-		actionModal.showDrop(data);
+		map.layScript(data);
 	}
 }
 
@@ -78,6 +101,40 @@ function dropSend() {
 				filetext: actionScripttext.value,
 				row: user.row, col: user.col};
 		datastore.drop(dropCallback, data)
+	}
+}
+
+////////// Run (Run scripts) ///////////
+function runCallback(data) {
+	if (checkError(data))
+		reconnect(data);
+	else{
+		actionModal.updateUser(data);
+		toolbar.showStatus(data);
+		actionModal.showOutput(data);
+		if (data['result']['has_heart'])
+			loadingOutputReturn("<small style='color:darkgreen;'>script ran safely</small>");
+		else if (data['result']['has_heart'] === null)
+			loadingOutputReturn("<small style='color:orange;'>heart file was destroyed</small>");
+		else
+			loadingOutputReturn("<small style='color:darkred;'>script failed to complete</small>");
+
+	}
+}
+
+function runSend() {
+	let actionScriptname = document.getElementById("actionScriptname");
+	let actionScripttext = document.getElementById("actionScripttext");
+	if (actionScriptname.value.lenth === 0 || actionScripttext.value.length === 0)
+		actionModal.messageLog("<small style='color:darkred;'>script name and text needed</small>")
+	else {
+		actionModal.clearOutput();
+		actionModal.appendOutputUserTitle(datastore['userData']);
+		actionModal.loadingOutputOn();
+		data = {filename: actionScriptname.value,
+				filetext: actionScripttext.value,
+				row: user.row, col: user.col};
+		datastore.run(runCallback, data)
 	}
 }
 
@@ -111,6 +168,34 @@ function setSend() {
 	// nameEle.value = '';
 }
 
+////////// Test (test script) ///////////
+function testCallback(data) {
+	if (checkError(data))
+		reconnect(data);
+	else{
+		let script = data["script"];
+		let worth = data["material"]
+		let img = "<img src='images/icons/material.gif' width=10 height=15>"
+		loadingReturn("Script is worth "+ worth +" " + img + "");
+		setInterval(showDrop, 2000);
+	}
+}
+
+function testSend() {
+	let actionScriptname = document.getElementById("actionScriptname");
+	let actionScripttext = document.getElementById("actionScripttext");
+	if (actionScriptname.value.lenth === 0 || actionScripttext.value.length === 0)
+		actionModal.messageLog("<small style='color:darkred;'>script name and text needed</small>")
+	else {
+		actionModal.loadingOn();
+		data = {filename: actionScriptname.value,
+				filetext: actionScripttext.value,
+				row: user.row, col: user.col};
+		datastore.test(testCallback, data)
+	}
+}
+
+
 ////////// Touch (fetch username, character, and ip) ///////////
 function touchCallback(data) {
 	actionModal.loadingOff();
@@ -119,9 +204,11 @@ function touchCallback(data) {
 	else{
 		toolbar.showStatus(data);
 		actionModal.showHeal(data);
+		window.connected = true;
 	}
 }
 function touchSend() {
 	actionModal.loadingOn();
 	datastore.touch(touchCallback);
 }
+

@@ -34,7 +34,7 @@ class Datastore {
 			if (xhr.readyState === 4 && xhr.status === 200) {
 	        	let json = JSON.parse(xhr.responseText);
 	        	datastore[endpoint+"Data"] = json;
-	        	if (endpoint !== "test" || endpoint !== "load")
+	        	if (endpoint !== "test" && endpoint !== "load")
 	        		datastore["userData"] = json;
 	        	if (callback !== undefined) {
 	        		callback(json);

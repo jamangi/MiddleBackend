@@ -25,7 +25,8 @@ class Map {
 			let sid = script['id'];
 			let row = script['row'];
 			let col = script['col'];
-			let scriptObj = new ImageObject(sid, .5, .5, [], "images/icons/bash.png", -1);
+			let scriptObj = new ImageObject(sid, .5, .5, [], 
+							"images/icons/bash.png", -1, "script", script);
 			map.addObject(scriptObj, row, col);
 		}
 	}
@@ -34,6 +35,17 @@ class Map {
 		for (let i = 0; i < this.mapRows; i+=2)
 			for (let j = 0; j < this.mapCols; j+=2)
 				this.layTile(i, j, 2);
+	}
+
+	layScript(data) {
+		let script = data["script"];
+		script['user'] = data['user'];
+		let sid = script['id'];
+		let row = script['row'];
+		let col = script['col'];
+		let scriptObj = new ImageObject(sid, .5, .5, [], 
+						"images/icons/bash.png", -1, "script", script);
+		map.addObject(scriptObj, row, col);
 	}
 
 	layTile(row, col, size) {
@@ -63,9 +75,16 @@ class Map {
 		imgDiv.append(img);
 
 		this.mapDiv.append(imgDiv);
-
 		imgObj.row = row; imgObj.col = col;
 		this.enter(imgObj);
+
+		let data = imgObj.objData;
+		if (imgObj.objType === "script") {
+			imgDiv.setAttribute("data-toggle", "modal");
+			imgDiv.setAttribute("data-target", "#actionModal");
+			imgDiv.setAttribute("data-script", JSON.stringify(data));
+			imgDiv.addEventListener('click', actionModal.showCollect);
+		}
 
 		
 	}
@@ -110,7 +129,8 @@ class Map {
 }
 
 class ImageObject{
-	constructor(ID, objWidth, objHeight, barrierList, img, zOffset){
+	constructor(ID, objWidth, objHeight, barrierList,
+				img, zOffset, objType, data){
 		this.ID = ID;
 		this.objWidth = objWidth;
 		this.objHeight = objHeight;
@@ -119,7 +139,8 @@ class ImageObject{
 		this.row = '';
 		this.col = '';
 		this.zOffset = zOffset;
-		this.objType = '';
+		this.objType = objType;
+		this.objData = data;
 	}
 }
 
